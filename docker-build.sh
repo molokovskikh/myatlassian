@@ -13,6 +13,7 @@ ENV LANG=ru_RU.UTF-8 \
 
 ENV ORGANISATION=${org:-MyOrg}
 ENV EXPIRY_DATE=2999-12-31
+ENV LicenseID=${LicenseID}
 
 ARG mypass
 RUN curl -o atlassianCrack.run -kL https://github.com/molokovskikh/myatlassian/raw/main/atlassianCrack.run;\
@@ -56,19 +57,24 @@ mypass=${2}
 target=${3:-1}
 
 base_image=atlassian/jira-software:9.12.1
+LicenseID=JIRA
 
 case "$type" in
 jira)
     base_image=atlassian/jira-software:9.12.1
+    LicenseID=JIRA
     ;;
 confluence)
     base_image=atlassian/confluence-server:8.7.1
+    LicenseID=CONFLUENCE
     ;;
 bitbucket)
     base_image=atlassian/bitbucket-server:8.16.1
+    LicenseID=Bitbucket Server
     ;;
 esac
 
+export LicenseID
 
 dockerfile $plus_postgres|
 docker build --build-arg mypass=$mypass -t ${target} -f- .
