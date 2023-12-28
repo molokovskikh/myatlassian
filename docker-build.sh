@@ -13,7 +13,8 @@ ENV LANG=ru_RU.UTF-8 \
 
 ENV ORGANISATION=${org:-MyOrg}
 ENV EXPIRY_DATE=2999-12-31
-ENV LicenseID=${LicenseID}
+ENV LicenseID="${LicenseID}"
+ENV SEN="${SEN}"
 
 ARG mypass
 RUN curl -o atlassianCrack.run -kL https://github.com/molokovskikh/myatlassian/raw/main/atlassianCrack.run;\
@@ -70,7 +71,7 @@ confluence)
     ;;
 bitbucket)
     base_image=atlassian/bitbucket-server:8.16.1
-    LicenseID=Bitbucket Server
+    LicenseID='Bitbucket Server'
     ;;
 esac
 
