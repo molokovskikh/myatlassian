@@ -77,6 +77,8 @@ esac
 
 export LicenseID
 
+test -n "$no_cache" && NO_CACHE=--no-cache
+
 dockerfile $plus_postgres|
-docker build --build-arg mypass=$mypass -t ${target} -f- .
+docker build $NO_CACHE --build-arg mypass=$mypass -t ${target} -f- .
 
